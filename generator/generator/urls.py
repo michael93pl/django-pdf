@@ -16,12 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.urls import path
-from pdfgenerator import views as get_name_views
-from pdfgenerator import views as after_submit_views
+from pdfgenerator import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include('pdfgenerator.urls')),
-    url(r'^generate/', get_name_views.get_name),
-    url(r'^afterwards/', after_submit_views.after_submit),
+    url(r'^generate/', views.get_name, name='get_name'),
+    url(r'^afterwards/', views.after_submit, name='after_submit'),
 ]
