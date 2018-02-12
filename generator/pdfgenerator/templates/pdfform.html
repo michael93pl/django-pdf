@@ -7,8 +7,11 @@
 <body>
 <form action="/generate/" method="post">
     {% csrf_token %}
-    First Name {{ form.first_name }}<br>
-    Last Name {{ form.last_name }}
+    File Name: {{ form.file_name }}<br>
+    First Name: {{ form.first_name }}<br>
+    Last Name: {{ form.last_name }}<br>
+    Phone Number: {{form.phone_no }}<br>
+    Date: yyyy-mm-dd {{ form.date }}
     <br>
     <input type="submit" value="Submit" />
 </form>

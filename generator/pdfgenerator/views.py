@@ -9,13 +9,13 @@ def get_name(request):
     if request.method == 'POST':
         form = NameForm(request.POST)
         if form.is_valid():
-            return redirect('/afterwards')
+            return render(request, 'aftergeneration.html', {'form': form})
     else:
         form = NameForm()
     return render(request, 'pdfform.html', {'form': form})
 
 def after_submit(request):
-    return render(request, 'aftergeneration.html')
+    pass
 
 def download_file(request):
     return render(request, 'download.html')
