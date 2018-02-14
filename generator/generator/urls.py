@@ -14,6 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from pdfgenerator import views
@@ -22,4 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include('pdfgenerator.urls')),
     url(r'^generate/', views.get_name, name='get_name'),
+    #url(r'^pdf/', views.download_file, name='download_file')
+
 ]
