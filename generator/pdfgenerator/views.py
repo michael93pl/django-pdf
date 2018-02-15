@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render_to_response, render
 from django.http import HttpResponse
-from .forms import FileForm
+from .forms import FileForm, ListForm
 import os
 import pdfkit
+
 
 def index(request):
     return render(request, "index.html")
@@ -25,11 +26,17 @@ def get_name(request):
         form = FileForm()
     return render(request, 'pdfform.html', {'form': form})
 
-#def download_file(request):
-    #pdf = pdfkit.from_url('http://127.0.0.1:8000/pdf', False)
-    #response = HttpResponse(pdf, content_type='application/pdf')
-    #response['Content-Disposition'] = 'attachment; filename="nowy.pdf"'
+def download_file(request):
+    pdf_folder = '/home/galander/Desktop/Projekty/django-pdf-generator/django-pdf/generator/static/pdfs'
+    response = HttpResponse(pdf_folder, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="nowy.pdf"'
 
-    #return response
+    return response
+
+def list(request):
+    folder = '/home/galander/Desktop/Projekty/django-pdf-generator/django-pdf/generator/static/pdfs'
+
+    analytics_list = os.listdir(folder)
+    return render_to_response('list.html', {'analytics': analytics_list})
 
 

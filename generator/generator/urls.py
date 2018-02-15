@@ -24,6 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include('pdfgenerator.urls')),
     url(r'^generate/', views.get_name, name='get_name'),
-    #url(r'^pdf/', views.download_file, name='download_file')
-
+    url(r'^list/', views.list, name='list'),
+    url(r'^pdf/', views.download_file, name='download_file')
 ]

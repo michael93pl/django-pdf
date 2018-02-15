@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+LIST OF FILE NAMES AS DROPDOWN MENU with SUBMIT BUTTON with REDIRECT TO SPECIFIC FILE DOWNLOAD PROCESS
+    <h1>File Input</h1>
+
+
+{% for analytic in analytics %}
+    <a href="/static/analytics/{{ analytic }}">{{ analytic }}</a>
+    <br>
+{% endfor %}
+</body>
+</html>
