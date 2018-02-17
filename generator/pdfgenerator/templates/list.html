@@ -5,13 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-LIST OF FILE NAMES AS DROPDOWN MENU with SUBMIT BUTTON with REDIRECT TO SPECIFIC FILE DOWNLOAD PROCESS
     <h1>File Input</h1>
-
-
-{% for analytic in analytics %}
-    <a href="/static/analytics/{{ analytic }}">{{ analytic }}</a>
+{% for file in file_list %}
+    <a href="/download/{{ file }}">{{ file }}</a>
     <br>
 {% endfor %}
+<br>
+<a href="/" class="btn btn-default">Homepage</a>
 </body>
 </html>

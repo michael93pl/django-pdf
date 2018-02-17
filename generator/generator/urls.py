@@ -15,15 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.conf import settings
-from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from pdfgenerator import views
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include('pdfgenerator.urls')),
-    url(r'^generate/', views.get_name, name='get_name'),
+    url(r'^generate/', views.generate, name='generate'),
     url(r'^list/', views.list, name='list'),
-    url(r'^pdf/', views.download_file, name='download_file')
-]
+    url(r'^pdfs/', views.download_file, name='download_file'),
+    url(r'^download/(?P<file_name>.+)$', views.download_file, name='download_file')
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
