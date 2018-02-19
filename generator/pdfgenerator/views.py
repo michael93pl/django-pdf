@@ -1,8 +1,9 @@
+from __future__ import absolute_import, unicode_literals
+from celery import shared_task
 from django.shortcuts import render_to_response, render
 from django.http import HttpResponse
 from .forms import FileForm
 from django.conf import settings
-from django.utils.encoding import smart_str
 from wsgiref.util import FileWrapper
 import os
 import pdfkit
@@ -10,18 +11,24 @@ import pdfkit
 def index(request):
     return render(request, "index.html")
 
+
+@shared_task()
+def something(data):
+    passed = 'File name: ' + data['file_name'] + '     First name:' + data['first_name'] + '    Last name: ' + data[
+        'last_name'] \
+             + '    Phone number: ' + str(data['phone_no']) + '    Data: ' + str(data['date'])
+    file_name = data['file_name']
+    pdfpath = settings.MEDIA_ROOT
+    name = "{}.pdf".format(file_name)
+    filepath = os.path.join(pdfpath, name)
+    pdfkit.from_string(passed, filepath)
+
 def generate(request):
     if request.method == 'POST':
         form = FileForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            passed = 'File name: ' + data['file_name'] + '     First name:' + data['first_name'] + '    Last name: ' + data['last_name']\
-                     + '    Phone number: ' + str(data['phone_no']) + '    Data: ' + str(data['date'])
-            file_name = form.cleaned_data['file_name']
-            pdfpath = settings.MEDIA_ROOT
-            name = "{}.pdf".format(file_name)
-            filepath = os.path.join(pdfpath, name)
-            pdfkit.from_string(passed, filepath)
+            something.delay(data)
             return render(request, 'aftergeneration.html', {'form': form})
     else:
         form = FileForm()
