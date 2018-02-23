@@ -76,20 +76,20 @@ WSGI_APPLICATION = 'generator.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pdfgenerator',
-        'USER': 'root',
-        'PASSWORD': 'xxx',
-        'HOST': '',
-        'PORT': ''
-    }
-}
+#DATABASES = {
+    #'default': {
+        #'ENGINE': 'django.db.backends.mysql',
+        #'NAME': 'pdfgenerator',
+        #'USER': 'root',
+       # 'PASSWORD': 'xxx',
+       # 'HOST': '',
+       # 'PORT': ''
+  #  }
+#}
 
-CELERY_RESULT_BACKEND = 'django-db'
+#CELERY_RESULT_BACKEND = 'django-db'
 
-CELERY_TASK_SERIALIZER = 'json'
+#CELERY_TASK_SERIALIZER = 'json'
 
 
 # Password validation

@@ -13,7 +13,7 @@ def index(request):
 
 
 @shared_task()
-def something(data):
+def creation(data):
     passed = 'File name: ' + data['file_name'] + '     First name:' + data['first_name'] + '    Last name: ' + data[
         'last_name'] \
              + '    Phone number: ' + str(data['phone_no']) + '    Data: ' + str(data['date'])
@@ -22,13 +22,14 @@ def something(data):
     name = "{}.pdf".format(file_name)
     filepath = os.path.join(pdfpath, name)
     pdfkit.from_string(passed, filepath)
+    return True
 
 def generate(request):
     if request.method == 'POST':
         form = FileForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            something.delay(data)
+            creation.delay(data)
             return render(request, 'aftergeneration.html', {'form': form})
     else:
         form = FileForm()
