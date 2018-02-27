@@ -7,9 +7,6 @@ class FileForm(forms.Form):
     phone_no = forms.IntegerField()
     date = forms.DateField()
 
-class ListForm(forms.Form):
-    file = forms.ChoiceField
-
 
 
 
