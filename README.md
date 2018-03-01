@@ -7,5 +7,6 @@ Detailed requirements can be found in requirements.txt file.
 # 2. Technologies
 
 Django
-CeleryPdfKit
+Celery
+PdfKit
 
