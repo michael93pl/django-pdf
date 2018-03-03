@@ -23,6 +23,7 @@ def check_pesel(value):
 number_validator = RegexValidator(regex='^[0-9]*$', message='Please provide valid phone number',
                                   code='invalid_number')
 
+
 class FileForm(forms.Form):
     file_name = forms.CharField(max_length=100)
     first_name = forms.CharField(max_length=100, required=True, validators=[character_validator])
