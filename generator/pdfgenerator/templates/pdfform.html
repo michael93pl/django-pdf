@@ -6,14 +6,36 @@
 </head>
 <body>
 <form action="/generate/" method="post">
+
+    {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+
+    {% endif %}
+
     {% csrf_token %}
     File name: {{ form.file_name }}<br>
     First name: {{ form.first_name }}<br>
     Last name: {{ form.last_name }}<br>
+    Address: {{ form.address }}<br>
+    Email: {{ form.email }}<br>
+    PESEL: {{ form.pesel }}<br>
     Phone number: {{form.phone_no }}<br>
-    Date: yyyy-mm-dd {{ form.date }}
     <br>
     <input type="submit" value="Submit" />
 </form>
+
+
 </body>
 </html>

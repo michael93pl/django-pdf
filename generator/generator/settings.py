@@ -75,16 +75,16 @@ WSGI_APPLICATION = 'generator.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-#DATABASES = {
-    #'default': {
-        #'ENGINE': 'django.db.backends.mysql',
-        #'NAME': 'pdfgenerator',
-        #'USER': 'root',
-       # 'PASSWORD': 'xxx',
-       # 'HOST': '',
-       # 'PORT': ''
-  #  }
-#}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'pdfgenerator',
+        'USER': 'root',
+        'PASSWORD': 'szatan696',
+        'HOST': '',
+        'PORT': ''
+    }
+}
 
 #CELERY_RESULT_BACKEND = 'django-db'
 
@@ -130,8 +130,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 MEDIA_URL = 'media/'
 
-#STATIC_URL = '/static/'
+STATIC_URL = '/static/'
 
-#STATIC_ROOT = os.path.join(BASE_DIR, "static-collection")
+STATIC_ROOT = os.path.join(BASE_DIR, "static-collection")
 
 
