@@ -25,13 +25,20 @@
     {% endif %}
 
     {% csrf_token %}
-    File name: {{ form.file_name }}<br>
+    <h2>Personal data</h2>
     First name: {{ form.first_name }}<br>
     Last name: {{ form.last_name }}<br>
-    Address: {{ form.address }}<br>
-    Email: {{ form.email }}<br>
+    Date of birth {{form.birth }}<br>
     PESEL: {{ form.pesel }}<br>
+    <h2>Contact</h2>
+    Email: {{ form.email }}<br>
     Phone number: {{form.phone_no }}<br>
+    <h2>Address</h2>
+    Street: {{ form.street }}<br>
+    City: {{ form.city }}<br>
+    ZIP code: {{ form.code }}<br>
+    <h2>Name of the file</h2>
+    File name: {{ form.file_name }}<br>
     <br>
     <input type="submit" value="Submit" />
 </form>

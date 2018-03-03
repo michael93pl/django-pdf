@@ -6,13 +6,21 @@
 </head>
 <body>
 <h1>You have successfully created an pdf ! </h1>
-
-File name: {{ form.file_name.value }}<br>
+<h2>Personal data</h2>
 First name: {{ form.first_name.value }}<br>
 Last name: {{ form.last_name.value }}<br>
+Date of birth: {{ form.birth.value }}<br>
+PESEL: {{ form.pesel.value }}<br>
+<h2>Contact</h2>
+Email: {{ form.email.value }}<br>
 Phone number: {{ form.phone_no.value }}<br>
+<h2>Address</h2>
+Street: {{ form.street.value }}<br>
+City: {{form.city.value }}<br>
+ZIP code: {{ form.code.value }}<br>
+<h2>File details</h2>
 Date {{ time }}<br>
-
+File name: {{ form.file_name.value }}<br>
 <br>
 <a href="/" class="btn btn-default">Homepage</a>
 </body>
