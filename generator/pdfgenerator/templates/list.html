@@ -5,12 +5,19 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>File Input</h1>
-{% for file in file_list %}
-    <a href="/download/{{ file }}">{{ file }}</a>
-    <br>
-{% endfor %}
+<h1>Choose which file you want to download and provide appropriate secret key</h1>
+    {% for file in file_list %}
+<form action="/download/{{ file }}" method="post">{% csrf_token %}
+            {% endfor %}
+    <select name="val" id="id"><br>
+    {% for file in file_list %}
+        <option value="{{ file }}">{{ file }}</option>
+            {% endfor %}
+    </select>
 <br>
+<input type="submit" value="Submit" />
+</form>
+
 <a href="/" class="btn btn-default">Homepage</a>
 </body>
 </html>

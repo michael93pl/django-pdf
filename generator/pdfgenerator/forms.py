@@ -43,7 +43,7 @@ def check_pesel(value):
     if x != True:
         raise ValidationError('PESEL is incorrect')
 
-
+#Form used to generate pdf
 class FileForm(forms.Form):
     file_name = forms.CharField(max_length=100, required=True, validators=[file_validator])
     first_name = forms.CharField(max_length=100, required=True, validators=[character_validator])
@@ -63,3 +63,6 @@ class FileForm(forms.Form):
     code = forms.CharField(min_length=5, max_length=6, required=True, validators=[code_validator])
 
 
+#Form used to validate permission
+class KeyForm(forms.Form):
+    secret_key = forms.CharField(max_length=100, required=True)

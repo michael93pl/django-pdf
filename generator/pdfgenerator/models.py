@@ -12,3 +12,5 @@ class Items(models.Model):
     city = models.CharField(max_length=100)
     code = models.CharField(max_length=100)
     date = models.DateField()
+    secret = models.CharField(max_length=10)
+
