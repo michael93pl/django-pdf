@@ -62,12 +62,7 @@ def generate(request):
         form = FileForm()
     return render(request, 'pdfform.html', {'form': form})
 
-def download_file(request, file_name):
-    file_path = settings.MEDIA_ROOT + file_name
-    wrapper = FileWrapper(open(file_path, 'rb'))
-    response = HttpResponse(wrapper, content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=' + file_name
-    return response
+
 
 # Iv5R7W6H0M
 def list(request):
@@ -76,7 +71,13 @@ def list(request):
     form = KeyForm(request.POST)
     if request.method == 'POST':
         if form.is_valid():
-            #secret = form.cleaned_data['secret_key']
-            #obj = Items.objects.get(secret=secret)
-            return render(request, 'list.html', {'form': form, 'file_list': file_list})
+            # secret = form.cleaned_data['secret_key']
+            # obj = Items.objects.get(secret=secret)
+
+            file_name = request.POST['name']
+            file_path = settings.MEDIA_ROOT + file_name
+            wrapper = FileWrapper(open(file_path, 'rb'))
+            response = HttpResponse(wrapper, content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename=' + file_name
+            return response
     return render(request, 'list.html', {'form': form, 'file_list': file_list})

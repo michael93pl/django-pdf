@@ -7,13 +7,14 @@
 <body>
 <h1>Choose which file you want to download and provide appropriate secret key</h1>
     {% for file in file_list %}
-<form action="/download/{{ file }}" method="post">{% csrf_token %}
+<form method="post">{% csrf_token %}
             {% endfor %}
-    <select name="val" id="id"><br>
+    <select name="name" id="name"><br>
     {% for file in file_list %}
         <option value="{{ file }}">{{ file }}</option>
             {% endfor %}
     </select>
+    {{ form.secret_key }}
 <br>
 <input type="submit" value="Submit" />
 </form>
