@@ -30,10 +30,11 @@ def generate(request):
     if request.method == 'POST':
         form = FileForm(request.POST)
         if form.is_valid():
-            time = datetime.datetime.now()
-            key = get_random_string(length=10)
+            time = datetime.datetime.now()  # displays current time
+            key = get_random_string(length=10)  # generates secret 10 char long key
+            name = form.cleaned_data['file_name'] + '.pdf'
             file = Items()
-            file.file_name = form.cleaned_data['file_name'] + '.pdf'
+            file.file_name = name
             file.first_name = form.cleaned_data['first_name']
             file.last_name = form.cleaned_data['last_name']
             file.birth = form.cleaned_data['birth']
@@ -45,6 +46,7 @@ def generate(request):
             file.code = form.cleaned_data['code']
             file.date = time
             file.secret = key
+            file.file = settings.MEDIA_ROOT
             file.save()
 
             context = {
