@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^', include('pdfgenerator.urls')),
     url(r'^generate/', views.generate, name='generate'),
     url(r'^list/', views.list, name='list'),
+    url(r'^download/(?P<file_name>.+)$', views.download_file, name='download_file')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

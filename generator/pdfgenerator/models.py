@@ -15,7 +15,7 @@ class Items(models.Model):
     code = models.CharField(max_length=100)
     date = models.DateField()
     secret = models.CharField(max_length=10)
-    file = models.FilePathField(path=MEDIA_ROOT)
+    file = models.CharField(max_length=300)
 
     def __str__(self):
         return self.file_name
@@ -27,4 +27,6 @@ class Items(models.Model):
             return "No attachment"
 
     file_link.allow_tags = True
+
+
 

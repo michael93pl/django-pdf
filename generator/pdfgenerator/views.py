@@ -46,7 +46,7 @@ def generate(request):
             file.code = form.cleaned_data['code']
             file.date = time
             file.secret = key
-            file.file = settings.MEDIA_ROOT
+            file.file = '/download/' + name
             file.save()
 
             context = {
@@ -63,7 +63,13 @@ def generate(request):
         form = FileForm()
     return render(request, 'pdfform.html', {'form': form})
 
-# Iv5R7W6H0M
+def download_file(request, file_name):
+    file_path = settings.MEDIA_ROOT + file_name
+    wrapper = FileWrapper(open(file_path, 'rb'))
+    response = HttpResponse(wrapper, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=' + file_name
+    return response
+
 def list(request):
     folder = settings.MEDIA_ROOT
     file_list = os.listdir(folder)
