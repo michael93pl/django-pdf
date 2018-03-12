@@ -1,6 +1,6 @@
 from django.db import models
 from generator.settings import MEDIA_ROOT
-
+from django.utils.html import format_html
 
 class Items(models.Model):
     file_name = models.CharField(max_length=30)
@@ -15,18 +15,14 @@ class Items(models.Model):
     code = models.CharField(max_length=100)
     date = models.DateField()
     secret = models.CharField(max_length=10)
-    file = models.CharField(max_length=300)
 
     def __str__(self):
         return self.file_name
 
-    def file_link(self):
-        if self.file:
-            return "<a href='%s'>download</a>" % (self.file)
-        else:
-            return "No attachment"
-
-    file_link.allow_tags = True
+    def view_link(self):
+        return format_html("<a href='/download/{}'>{}</a>".format(self.file_name, self.file_name))
+    view_link.short_description = ''
+    view_link.allow_tags = True
 
 
 

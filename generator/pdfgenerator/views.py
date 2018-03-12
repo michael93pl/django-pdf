@@ -1,10 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 from celery import shared_task
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render
 from django.utils.crypto import get_random_string
 from django.http import HttpResponse
 from django.conf import settings
-from django.views import View
 from wsgiref.util import FileWrapper
 import os
 import pdfkit
