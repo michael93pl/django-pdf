@@ -1,5 +1,4 @@
 from django.db import models
-from generator.settings import MEDIA_ROOT
 from django.utils.html import format_html
 
 class Items(models.Model):

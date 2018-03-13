@@ -21,7 +21,6 @@
             <strong>{{ error|escape }}</strong>
         </div>
     {% endfor %}
-
     {% endif %}
 
     {% csrf_token %}
@@ -41,8 +40,17 @@
     File name: {{ form.file_name }}<br>
     <br>
     <input type="submit" value="Submit" />
-</form>
+    </form>
 
+<br><br>
+    <form method="POST" action="/generate/" enctype="multipart/form-data">
+            {% csrf_token %}
+        <div class="form-group">
+
+    <input type="file" name="csv_file" />
+    <input type="submit" value="Upload" />
+        </div>
+    </form>
 
 </body>
 </html>
