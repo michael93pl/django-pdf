@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pdfgenerator',
         'USER': 'root',
-        'PASSWORD': 'szatan696',
+        'PASSWORD': 'xxx',
         'HOST': '',
         'PORT': ''
     }
