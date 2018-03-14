@@ -18,7 +18,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path
 from pdfgenerator import views
-from pdfgenerator.views import Index, Generate
+from pdfgenerator.views import Index, Generate, List
 from django.conf.urls.static import static
 
 
@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Index.as_view()),
     path('generate/', Generate.as_view()),
-    url(r'^list/', views.list, name='list'),
+    path('list/', List.as_view()),
     url(r'^download/(?P<file_name>.+)$', views.download_file, name='download_file')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

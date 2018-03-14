@@ -115,11 +115,12 @@ def download_file(request, file_name):
 
 
 # listing and checking whether keys match
-def list(request):
+class List(View):
+    form_class = KeyForm
     folder = settings.MEDIA_ROOT
-    file_list = os.listdir(folder)
-    form = KeyForm(request.POST)
-    if request.method == 'POST':
+
+    def post(self, request):
+        form = self.form_class(request.POST)
         if form.is_valid():
             name = request.POST['name']  # filename given by the user
             secret = form.cleaned_data['secret_key']  # key given by the user
@@ -127,9 +128,15 @@ def list(request):
             given = Items.objects.filter(file_name=name).values_list('file_name', 'secret').first()  # returns tuple
             if taken == given:# checks whether keys match
                 file_name = name
-                file_path = settings.MEDIA_ROOT + file_name
+                file_path = self.folder + file_name
                 wrapper = FileWrapper(open(file_path, 'rb'))
                 response = HttpResponse(wrapper, content_type='application/pdf')
                 response['Content-Disposition'] = 'attachment; filename=' + file_name
                 return response
-    return render(request, 'list.html', {'form': form, 'file_list': file_list})
+            else:
+                return HttpResponse("Please go back and provide valid secret key!")
+
+    def get(self, request):
+        file_list = os.listdir(self.folder)
+        form = self.form_class
+        return render(request, 'list.html', {'form': form, 'file_list': file_list})
