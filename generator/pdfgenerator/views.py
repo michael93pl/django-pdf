@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.utils.crypto import get_random_string
 from django.http import HttpResponse
 from django.conf import settings
+from django.views import View
 from wsgiref.util import FileWrapper
 import pandas as pd
 import os
@@ -14,39 +15,45 @@ from .models import Items
 
 
 # homepage
-def index(request):
-    return render(request, "index.html")
+class Index(View):
+
+    def get(self, request):
+        return render(request, "index.html")
 
 @shared_task()
 def creation(data):
     passed = data['file_name'] + data['first_name'] + data['last_name'] + data['birth'] + data['pesel']\
     + str(data['email']) +str(data['phone_no']) + data['street'] + data['city'] + data['code']
     file_name = data['file_name']
-    pdfpath = settings.MEDIA_ROOT
+    pdf_path = settings.MEDIA_ROOT
     name = "{}.pdf".format(file_name)
-    filepath = os.path.join(pdfpath, name)
-    pdfkit.from_string(passed, filepath)
+    file_path = os.path.join(pdf_path, name)
+    pdfkit.from_string(passed, file_path)
     return True
 
+
 # filling a form view
-def generate(request):
-    if request.method == 'POST':
-        form = FileForm(request.POST)
+class Generate(View):
+    form_class = FileForm
+    generate_template = 'pdfform.html'
+
+    def post(self, request):
+        form = self.form_class(request.POST)
         if request.FILES:
             csvfile = request.FILES['csv_file']
             file_data = pd.read_csv(csvfile)
-            raws = []
+            rows = []
             for line in file_data:
-                raws.append(line)
-            first = raws[0]
-            last = raws[1]
-            birth = raws[2]
-            pesel = raws[3]
-            email = raws[4]
-            phone = raws[5]
-            street = raws[6]
-            city = raws[7]
-            code = raws[8]
+                rows.append(line)
+            first = rows[0]
+            last = rows[1]
+            birth = rows[2]
+            pesel = rows[3]
+            email = rows[4]
+            phone = rows[5]
+            street = rows[6]
+            city = rows[7]
+            code = rows[8]
 
             data = {'first_name': first,
                     'last_name': last,
@@ -57,7 +64,8 @@ def generate(request):
                     'street': street,
                     'city': city,
                     'code': code}
-            form = FileForm(initial=data)
+
+            form = self.form_class(initial=data)
 
         if form.is_valid():
             # gather all data to the model
@@ -84,16 +92,17 @@ def generate(request):
                 'form': form,
                 'time': time,
                 'key': key
-            }
+                      }
 
             data = form.cleaned_data
             creation.delay(data)
             return render(request, 'aftergeneration.html', context)
         else:
-            return render(request, 'pdfform.html', {'form': form})
-    else:
-        form = FileForm()
-    return render(request, 'pdfform.html', {'form': form})
+            return render(request, self.generate_template, {'form': form})
+
+    def get(self, request):
+        form = self.form_class
+        return render(request, self.generate_template, {'form': form})
 
 
 # downloads file

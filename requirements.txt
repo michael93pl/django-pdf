@@ -11,6 +11,7 @@ docopt==0.6.2
 idna==2.6
 kombu==4.1.0
 packaging==16.8
+pandas==0.22.0
 pdfkit==0.6.1
 pip-upgrader==1.4.4
 pyparsing==2.2.0

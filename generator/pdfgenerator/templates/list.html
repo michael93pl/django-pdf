@@ -6,9 +6,9 @@
 </head>
 <body>
 <h1>Choose which file you want to download and provide appropriate secret key</h1>
-    {% for file in file_list %}
+
 <form method="post">{% csrf_token %}
-            {% endfor %}
+
     <select name="name" id="name"><br>
     {% for file in file_list %}
         <option value="{{ file }}">{{ file }}</option>

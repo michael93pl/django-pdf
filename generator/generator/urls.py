@@ -18,13 +18,14 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path
 from pdfgenerator import views
+from pdfgenerator.views import Index, Generate
 from django.conf.urls.static import static
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^', include('pdfgenerator.urls')),
-    url(r'^generate/', views.generate, name='generate'),
+    path('', Index.as_view()),
+    path('generate/', Generate.as_view()),
     url(r'^list/', views.list, name='list'),
     url(r'^download/(?P<file_name>.+)$', views.download_file, name='download_file')
 
