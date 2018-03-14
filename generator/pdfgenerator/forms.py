@@ -45,9 +45,9 @@ def check_pesel(value):
 
 #Form used to generate pdf
 class FileForm(forms.Form):
-    file_name = forms.CharField(max_length=100, required=True, validators=[file_validator])
-    first_name = forms.CharField(max_length=100, required=True, validators=[character_validator])
-    last_name = forms.CharField(max_length=100, required=True, validators=[character_validator])
+    file_name = forms.CharField(max_length=20, required=True, validators=[file_validator])
+    first_name = forms.CharField(max_length=20, required=True, validators=[character_validator])
+    last_name = forms.CharField(max_length=30, required=True, validators=[character_validator])
     birth = forms.DateField(required=True, input_formats=['%d-%m-%Y',
                                                           '%d/%m/%Y',
                                                           '%d.%m.%Y',
@@ -56,10 +56,10 @@ class FileForm(forms.Form):
                                                           '%Y.%m.%d'
                                                           ])
     pesel = forms.CharField(max_length=11, required=True, validators=[check_pesel])
-    email = forms.EmailField(required=True, validators=[EmailValidator])
+    email = forms.EmailField(max_length=30, required=True, validators=[EmailValidator])
     phone_no = forms.CharField(min_length=9, max_length=11, required=True, validators=[number_validator])
-    street = forms.CharField(max_length=100, required=True, validators=[name_validator])
-    city = forms.CharField(max_length=100, required=True, validators=[character_validator])
+    street = forms.CharField(max_length=30, required=True, validators=[name_validator])
+    city = forms.CharField(max_length=30, required=True, validators=[character_validator])
     code = forms.CharField(min_length=5, max_length=6, required=True, validators=[code_validator])
 
 
