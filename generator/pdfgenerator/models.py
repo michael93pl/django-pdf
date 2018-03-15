@@ -2,15 +2,15 @@ from django.db import models
 from django.utils.html import format_html
 
 class Items(models.Model):
-    file_name = models.CharField(max_length=20)
+    file_name = models.CharField(max_length=40)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=30)
-    birth = models.CharField(max_length=15)
+    birth = models.DateField()
     pesel = models.CharField(max_length=11)
-    email = models.EmailField(max_length=30)
-    phone_no = models.IntegerField()
-    street = models.CharField(max_length=30)
-    city = models.CharField(max_length=30)
+    email = models.EmailField(max_length=50)
+    phone_no = models.CharField(max_length=17)
+    street = models.CharField(max_length=100)
+    city = models.CharField(max_length=35)
     code = models.CharField(max_length=6)
     date = models.DateField()
     secret = models.CharField(max_length=10)

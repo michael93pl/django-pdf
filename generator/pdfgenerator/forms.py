@@ -3,8 +3,8 @@ from django.core.validators import RegexValidator, EmailValidator
 from django.core.exceptions import ValidationError
 
 # cheks if names don't contain numbers
-character_validator = RegexValidator(regex='^[a-zA-Z]*$',
-                                     message='Please provide your first and last name with characters only.',
+character_validator = RegexValidator(regex='^[a-zA-Z-\s]*$',
+                                     message='Please provide characters only.',
                                      code='invalid_username')
 
 # Validates file name
@@ -17,12 +17,10 @@ name_validator = RegexValidator(regex='^[a-zA-Z0-9./-_\s]*$',
                                 message='Please provide valid name.',
                                 code='invalid_name')
 
-
 # Validates phone number
-number_validator = RegexValidator(regex='^[0-9-/\s]*$',
-                                  message='Please provide valid phone number.',
-                                  code='invalid_number')
-
+phone_validator = RegexValidator(regex='^[0-9-()+/\s]*$',
+                                 message='Please provide valid phone number.',
+                                 code='invalid_number')
 
 # Zip code validator
 code_validator = RegexValidator(regex='^[0-9-\s]*$',
@@ -43,9 +41,10 @@ def check_pesel(value):
     if x != True:
         raise ValidationError('PESEL is incorrect')
 
-#Form used to generate pdf
+
+# Form used to generate pdf
 class FileForm(forms.Form):
-    file_name = forms.CharField(max_length=20, required=True, validators=[file_validator])
+    file_name = forms.CharField(max_length=40, required=True, validators=[file_validator])
     first_name = forms.CharField(max_length=20, required=True, validators=[character_validator])
     last_name = forms.CharField(max_length=30, required=True, validators=[character_validator])
     birth = forms.DateField(required=True, input_formats=['%d-%m-%Y',
@@ -56,13 +55,13 @@ class FileForm(forms.Form):
                                                           '%Y.%m.%d'
                                                           ])
     pesel = forms.CharField(max_length=11, required=True, validators=[check_pesel])
-    email = forms.EmailField(max_length=30, required=True, validators=[EmailValidator])
-    phone_no = forms.CharField(min_length=9, max_length=11, required=True, validators=[number_validator])
-    street = forms.CharField(max_length=30, required=True, validators=[name_validator])
-    city = forms.CharField(max_length=30, required=True, validators=[character_validator])
+    email = forms.EmailField(max_length=50, required=True, validators=[EmailValidator])
+    phone_no = forms.CharField(min_length=9, max_length=17, required=True, validators=[phone_validator])
+    street = forms.CharField(max_length=100, required=True, validators=[name_validator])
+    city = forms.CharField(max_length=35, required=True, validators=[character_validator])
     code = forms.CharField(min_length=5, max_length=6, required=True, validators=[code_validator])
 
 
-#Form used to validate permission
+# Form used to validate permission
 class KeyForm(forms.Form):
-    secret_key = forms.CharField(max_length=100, required=True)
+    secret_key = forms.CharField(max_length=10, required=True)

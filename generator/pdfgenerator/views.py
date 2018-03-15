@@ -95,7 +95,7 @@ class Generate(View):
                       }
 
             data = form.cleaned_data
-            creation.delay(data)
+            creation.delay(data)  # passes data to celery task
             return render(request, 'aftergeneration.html', context)
         else:
             return render(request, self.generate_template, {'form': form})
