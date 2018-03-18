@@ -5,9 +5,9 @@ from .forms import KeyForm, FileForm
 
 # forms tests
 class TestFileForm(TestCase):
-    def test_fileform(self):
+    def test_file_form(self):
         form_data = {'file_name': 'superawesomefile.pdf',
-                     'first_name': 'Michal',
+                     'first_name': 'Wanda Halina',
                      'last_name': 'Two-Part-Last Name',
                      'birth': '15-12-2013',
                      'pesel': '60081917875',
@@ -22,8 +22,8 @@ class TestFileForm(TestCase):
 
 
 class TestKeyForm(TestCase):
-    def test_keyform(self):
-        form_data = {'secret_key': 't3nch4r4ct'}
+    def test_key_form(self):
+        form_data = {'secret_key': 't3nCH4r4ct'}
         form = KeyForm(data=form_data)
         self.assertTrue(form.is_valid(), form.errors)
 
@@ -40,13 +40,11 @@ class TestPage(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
 
-
     def test_generate_page(self):
         url = reverse('generate')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'pdfform.html')
-
 
     def test_list_page(self):
         url = reverse('list')

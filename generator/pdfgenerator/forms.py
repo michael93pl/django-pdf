@@ -2,7 +2,7 @@ from django import forms
 from django.core.validators import RegexValidator, EmailValidator
 from django.core.exceptions import ValidationError
 
-# cheks if names don't contain numbers
+# checks if names don't contain numbers
 character_validator = RegexValidator(regex='^[a-zA-Z-\s]*$',
                                      message='Please provide characters only.',
                                      code='invalid_username')

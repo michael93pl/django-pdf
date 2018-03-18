@@ -1,4 +1,10 @@
 from __future__ import absolute_import, unicode_literals
+
+import pandas as pd
+import os
+import pdfkit
+import datetime
+
 from celery import shared_task
 from django.shortcuts import render
 from django.utils.crypto import get_random_string
@@ -6,10 +12,7 @@ from django.http import HttpResponse
 from django.conf import settings
 from django.views import View
 from wsgiref.util import FileWrapper
-import pandas as pd
-import os
-import pdfkit
-import datetime
+
 from .forms import FileForm, KeyForm
 from .models import Items
 
@@ -23,7 +26,7 @@ class Index(View):
 @shared_task()
 def creation(data):
     passed = data['file_name'] + data['first_name'] + data['last_name'] + data['birth'] + data['pesel']\
-    + str(data['email']) +str(data['phone_no']) + data['street'] + data['city'] + data['code']
+        + str(data['email']) + str(data['phone_no']) + data['street'] + data['city'] + data['code']
     file_name = data['file_name']
     pdf_path = settings.MEDIA_ROOT
     name = "{}.pdf".format(file_name)
@@ -40,10 +43,10 @@ class Generate(View):
     def post(self, request):
         form = self.form_class(request.POST)
         if request.FILES:
-            csvfile = request.FILES['csv_file']
-            file_data = pd.read_csv(csvfile)
+            csv_file = request.FILES['csv_file']
+            file_data = pd.read_csv(csv_file)
             rows = []
-            for line in file_data:
+            for line in file_data:  # imports all personal data besides file name
                 rows.append(line)
             first = rows[0]
             last = rows[1]
@@ -55,7 +58,7 @@ class Generate(View):
             city = rows[7]
             code = rows[8]
 
-            data = {'first_name': first,
+            data = {'first_name': first,  # converts data into initial - dict base form
                     'last_name': last,
                     'birth': birth,
                     'pesel': pesel,
@@ -125,8 +128,8 @@ class List(View):
             name = request.POST['name']  # filename given by the user
             secret = form.cleaned_data['secret_key']  # key given by the user
             taken = (name, secret)  # converts data to tuple
-            given = Items.objects.filter(file_name=name).values_list('file_name', 'secret').first()  # returns tuple
-            if taken == given:# checks whether keys match
+            given = Items.objects.filter(file_name=name).values_list('file_name', 'secret').first()  # returns a tuple
+            if taken == given:  # checks whether keys match
                 file_name = name
                 file_path = self.folder + file_name
                 wrapper = FileWrapper(open(file_path, 'rb'))

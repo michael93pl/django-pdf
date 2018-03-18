@@ -68,15 +68,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pdfgenerator',
         'USER': 'root',
-        'PASSWORD': 'szatan696',
+        'PASSWORD': 'yyy',
         'HOST': '',
         'PORT': ''
     }
 }
-
-#CELERY_RESULT_BACKEND = 'django-db'
-
-#CELERY_TASK_SERIALIZER = 'json'
 
 
 # Password validation

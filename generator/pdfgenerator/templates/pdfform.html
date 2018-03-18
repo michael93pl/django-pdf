@@ -43,6 +43,7 @@
     </form>
 
 <br><br>
+<h2>Upload CSV file to fill the form</h2>
     <form method="POST" action="/generate/" enctype="multipart/form-data">
             {% csrf_token %}
         <div class="form-group">
@@ -51,6 +52,7 @@
     <input type="submit" value="Upload" />
         </div>
     </form>
-
+<br>
+<a href="/" class="btn btn-default">Homepage</a>
 </body>
 </html>
